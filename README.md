@@ -17,7 +17,7 @@ __Note__: The prime numbers used for generating RSA key pairs in this tool are n
 
 - Python 3.6+
 - NumPy library
-- PIL (Python Imaging Library) library
+- PIL (Python Imaging Library)
 
 ## Installation
 
