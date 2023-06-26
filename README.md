@@ -6,6 +6,8 @@ Steganography is the practice of concealing information within other non-secret 
 
 The RSA encryption algorithm is a widely used public-key encryption method that utilizes the properties of prime numbers for secure data transmission. The hidden message is encrypted using a randomly generated public-private key pair, ensuring that only the intended recipient with the corresponding private key can decrypt and extract the message.
 
+__Note__: The prime numbers used for generating RSA key pairs in this tool are not large enough for secure production use. They are provided for demonstration purposes only. For real-world applications, it is crucial to use much larger prime numbers to ensure the security of the encryption.
+
 ## Features
 
 - Hide a message within a PNG image
