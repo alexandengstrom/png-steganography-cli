@@ -37,7 +37,7 @@ def hide_message(message, png, output, pubkey, bit_len=1):
     Returns:
         None
     """
-    
+
     image = PIL.Image.open(png, "r")
     width, height = image.size
     img_data = np.array(list(image.getdata()))
@@ -48,12 +48,16 @@ def hide_message(message, png, output, pubkey, bit_len=1):
     bit_string = "".join(bin(num)[2:].zfill(32) for num in encrypted_message)
     bit_string += "".join(f"{ord(c):08b}" for c in "$EOT$")
     
-    bits_needed = len(bit_string) 
-    avai_bits = (pixels * bit_len) / 4 * 3 if channels == 4 else pixels * bit_len
+    bits_needed = len(bit_string)
+    avai_bits = int((pixels * bit_len) / 4 * 3 if channels == 4 else pixels * bit_len)
+
+    print("Image inspected, requirements:")
+    print(f"{'Needed:'.ljust(15)} {str(bits_needed).ljust(10)} bits")
+    print(f"{'Available:'.ljust(15)} {str(avai_bits).ljust(10)} bits")
 
     if bits_needed > avai_bits:
-        print(f"ERROR: Message to large to fit inside {png}", file=sys.stderr)
-        print(f"Need {bits_needed} bits but only got {avai_bits} bits to use.", file=sys.stderr)
+        print(f"\nERROR: Message to large to fit inside {png}", file=sys.stderr)
+        print(f"Overflow: {bits_needed-avai_bits} bits", file=sys.stderr)
         exit()
 
     index = 0
@@ -126,6 +130,7 @@ def text2ints(text, m):
         list: The list of integers representing the text.
     """
     
+    #t = text.encode()
     t = text.encode()
     t += b"\x00" * ((m - len(t) % m) % m)
     return [int.from_bytes(t[i:i+m], "big") for i in range(0, len(t), m)]
@@ -316,8 +321,10 @@ if __name__ == "__main__":
         prime1, prime2 = generate_primes()
         pubkey, seckey = generate_keypair(prime1, prime2)
         hide_message(data, args.source, output_path, pubkey, args.bits)
+        print()
         print(f"Message was hidden inside {output_path} succesfully!")
         print(f"Decryption key: {str(seckey[0])}-{str(seckey[1])}")
+        message = extract_message(output_path, seckey, args.bits)
     elif args.action == "extract":
         seckey = (int(args.key.split("-")[0]), int(args.key.split("-")[1]))
         message = extract_message(args.source, seckey, args.bits)
