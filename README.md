@@ -33,7 +33,7 @@ The RSA encryption algorithm is a widely used public-key encryption method that 
 
 ## Usage
 ```bash
-python png_steganography.py hide <source_image> <data_file> [--bits <num_bits>] [--output <output_image>]
+python3 png_steganography.py hide <source_image> <data_file> [--bits <num_bits>] [--output <output_image>]
 ```
 * __hide__: Action to hide a message within a PNG image.
 * __&lt;source_image&gt;__: Path to the source PNG image.
@@ -42,7 +42,7 @@ python png_steganography.py hide <source_image> <data_file> [--bits <num_bits>] 
 * __--output &lt;output_file&gt;__(optional): Output path for the new image. If not provided, the soruce image will be overwritten.
 
 ``` bash
-python png_steganography.py extract <source_image> <decryption_key> [--bits <num_bits>] [--output <output_file>]
+python3 png_steganography.py extract <source_image> <decryption_key> [--bits <num_bits>] [--output <output_file>]
 ```
 * __extract__: Action to extract a hidden message from a PNG image.
 * __&lt;source_image&gt;__: Path to the PNG image that stores the hidden message.
@@ -53,11 +53,11 @@ python png_steganography.py extract <source_image> <decryption_key> [--bits <num
 ## Examples
 * Hiding a message within an image:
   ``` bash
-  python png_steganography.py hide image.png secret.txt --bits 2 --output output.png
+  python3 png_steganography.py hide image.png secret.txt --bits 2 --output output.png
   ```
 * Extracting a hidden message from an image:
   ``` bash
-  python png_steganography.py extract image.png 12345-6789 --bits 2 --output extracted.txt
+  python3 png_steganography.py extract image.png 12345-6789 --bits 2 --output extracted.txt
   ```
 
   ### Hiding Romeo & Juliet inside an Image.
