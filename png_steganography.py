@@ -324,7 +324,6 @@ if __name__ == "__main__":
         print()
         print(f"Message was hidden inside {output_path} succesfully!")
         print(f"Decryption key: {str(seckey[0])}-{str(seckey[1])}")
-        message = extract_message(output_path, seckey, args.bits)
     elif args.action == "extract":
         seckey = (int(args.key.split("-")[0]), int(args.key.split("-")[1]))
         message = extract_message(args.source, seckey, args.bits)
